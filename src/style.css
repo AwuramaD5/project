@@ -226,6 +226,9 @@
 /* Guests use a clean half-body silhouette: no legs, feet, or round hand end-caps. */
 .guest-leg{display:none!important}.guest-arm:after{display:none!important}.guest-shoe{position:absolute;z-index:1;top:94%;width:38%;height:15%;border-radius:13px 13px 6px 6px;background:#3b3130;box-shadow:inset 0 -4px #201a1b,0 2px 0 #4b332d44}.guest-shoe-left{left:10%}.guest-shoe-right{right:10%}.big-guest.guest .guest-shoe{top:95%}.service-guest.guest .guest-shoe,.review-guest.guest .guest-shoe{top:95%;height:16%}
 
+/* All guest faces use the chef's simplest eye treatment: two black dots. */
+.guest .guest-eyes b{border:0!important;background:#211c1d!important;box-shadow:none!important}
+
 /* Order and handoff arms use the guest's skin tone with clear, solid definition. */
 .order-screen .big-guest.guest .guest-arm,.handoff-scene .service-guest.guest .guest-arm{opacity:1;background:var(--guest-skin);box-shadow:inset 3px -4px var(--guest-skin-shadow),0 1px 0 #432c2838}
 
@@ -240,6 +243,32 @@
 
 /* Final arm color pass after all scene-specific sizing rules. */
 .order-screen .big-guest.guest .guest-arm,.handoff-scene .service-guest.guest .guest-arm,.review-guest.guest .guest-arm{opacity:1!important;background:var(--guest-skin)!important;box-shadow:inset 3px -4px var(--guest-skin-shadow),0 1px 0 #432c2838!important}
+
+/* Keep the review guest compact instead of giving them an oversized torso. */
+.review-guest.guest .guest-body{width:58px;height:70px}
+
+/* Put the handoff message high in the scene, above the waiting guest. */
+.handoff-scene .guest-bubble{right:0;bottom:208px;width:175px}
+.handoff-scene .guest-bubble:after{right:20px}
+
+/* The handoff shows only the dish's own plate, without a second oversized platter. */
+.handoff-scene .served-dish{background:transparent;border:0;box-shadow:none}
+.handoff-scene .served-dish{isolation:isolate}
+.handoff-scene .served-dish:after{content:'';position:absolute;z-index:0;left:-42px;right:-42px;top:76px;height:30px;border-radius:5px 5px 2px 2px;background:linear-gradient(#d9a16f 0 24%,#ad6945 25% 78%,#7b432f 79%);box-shadow:0 7px 0 #563126,0 11px 10px #3e252735}
+.handoff-scene .served-dish .flat-food{z-index:1;top:-10px}
+.handoff-scene .service-guest{right:5%}
+.handoff-scene .service-guest>b{position:relative;z-index:3;display:block;margin-top:18px}
+
+/* Continue the selected restaurant mood through ordering and the final handoff. */
+#app[data-ambience="sunset"] .order-screen,#app[data-ambience="sunset"] .service-screen{background:linear-gradient(145deg,#f7e3d5,#ead6d9)}
+#app[data-ambience="sunset"] .counter-scene,#app[data-ambience="sunset"] .handoff-scene{background:linear-gradient(#e3a17e 0 70%,#925642 70%)}
+#app[data-ambience="midnight"] .order-screen,#app[data-ambience="midnight"] .service-screen{background:linear-gradient(145deg,#263946,#344550)}
+#app[data-ambience="midnight"] .counter-scene,#app[data-ambience="midnight"] .handoff-scene{background:linear-gradient(#314d5c 0 70%,#46343a 70%)}
+#app[data-ambience="aurora"] .order-screen,#app[data-ambience="aurora"] .service-screen{background:linear-gradient(145deg,#203e4c,#5a4c7c 52%,#ba7796)}
+#app[data-ambience="aurora"] .counter-scene,#app[data-ambience="aurora"] .handoff-scene{background:linear-gradient(#587691 0 70%,#644353 70%)}
+
+/* Atlas level is grouped with its progress and can be claimed once full. */
+.map-view .passport{display:none}.atlas-progress{width:270px}.atlas-progress-top span{display:block}.atlas-level-up{width:100%;margin-top:10px;border:1px solid #d9c3a8;border-radius:7px;background:#f3e9db;color:#a18a78;padding:8px 10px;font:700 9px 'DM Mono';letter-spacing:.08em}.atlas-level-up.ready{border-color:#d45f50;background:#e76457;color:#fff;box-shadow:0 3px 0 #bd4a45}.atlas-level-up.ready:active{transform:translateY(2px);box-shadow:0 1px 0 #bd4a45}
 
 /* Match the dining-room guest's shoes to the chef's rounded, shaded feet. */
 .restaurant-stage .customer .guest-leg:after{width:38px;height:14px;bottom:-7px;border-radius:13px 13px 6px 6px;background:#3b3130;box-shadow:inset 0 -4px #201a1b}.restaurant-stage .customer .guest-leg-left:after{left:-8px}.restaurant-stage .customer .guest-leg-right:after{right:-8px}
