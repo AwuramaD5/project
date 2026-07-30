@@ -267,9 +267,6 @@
 #app[data-ambience="aurora"] .order-screen,#app[data-ambience="aurora"] .service-screen{background:linear-gradient(145deg,#203e4c,#5a4c7c 52%,#ba7796)}
 #app[data-ambience="aurora"] .counter-scene,#app[data-ambience="aurora"] .handoff-scene{background:linear-gradient(#587691 0 70%,#644353 70%)}
 
-/* Atlas level is grouped with its progress and can be claimed once full. */
-.map-view .passport{display:none}.atlas-progress{width:270px}.atlas-progress-top span{display:block}.atlas-level-up{width:100%;margin-top:10px;border:1px solid #d9c3a8;border-radius:7px;background:#f3e9db;color:#a18a78;padding:8px 10px;font:700 9px 'DM Mono';letter-spacing:.08em}.atlas-level-up.ready{border-color:#d45f50;background:#e76457;color:#fff;box-shadow:0 3px 0 #bd4a45}.atlas-level-up.ready:active{transform:translateY(2px);box-shadow:0 1px 0 #bd4a45}
-
 /* Match the dining-room guest's shoes to the chef's rounded, shaded feet. */
 .restaurant-stage .customer .guest-leg:after{width:38px;height:14px;bottom:-7px;border-radius:13px 13px 6px 6px;background:#3b3130;box-shadow:inset 0 -4px #201a1b}.restaurant-stage .customer .guest-leg-left:after{left:-8px}.restaurant-stage .customer .guest-leg-right:after{right:-8px}
 
