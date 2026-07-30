@@ -166,3 +166,18 @@ const diverseOrderView=orderView
 orderView=()=>{const guest=guestProfile();return diverseOrderView().replace('class="big-guest"',`class="big-guest guest ${guest.type}"`).replace('<div class="speech"><b>',`<div class="speech"><span class="guest-role">${guest.label}</span><b>`)}
 const diverseResultView=resultView
 resultView=()=>{const guest=guestProfile();return diverseResultView().replace('class="service-guest"',`class="service-guest guest ${guest.type}"`).replace('class="review-guest"',`class="review-guest guest ${guest.type}"`)}
+
+// Mixing supports both a circular drag and a simple tap, so it stays comfortable on every device.
+const flexibleMixStation=station
+station=(r:Recipe)=>flexibleMixStation(r).replace(/<div class="slice-button manual-stir-hint">([\s\S]*?)<\/div>/,`<button class="slice-button manual-stir-hint" data-action="combine">$1</button>`).replace('Give the bowl three turns to create your cooking mixture.','Drag the spoon around the bowl, or tap the button to stir once.')
+
+// Every city is playable immediately; chef levels now reward continued service with useful perks.
+cities.forEach(city=>city.locked=false)
+;(gameAmbiences as any).aurora='Aurora'
+const levelledAmbienceNav=nav
+nav=()=>{const output=levelledAmbienceNav();return state.level>=3?output:output.replace(/<button class="ambience-dot[^>]*data-action="ambience-aurora"[\s\S]*?<\/button>/,'')}
+const chefProgressRestaurant=restaurantView
+restaurantView=()=>{const xp=(state as any).chefXp||0;const current=state.level;const progress=xp%2;const upgrade=current<3?'Unlock Aurora ambience at Lv. 3':current<4?'Unlock Signature Plating at Lv. 4 (+25 coins per order)':current<5?'Unlock Critic’s Choice at Lv. 5 (+1 reputation per order)':'Master Chef perks are active.';const panel=`<section class="chef-progress"><div class="progress-emblem">✦</div><div><p class="eyebrow">CHEF PROGRESSION · LEVEL ${current}</p><h2>${upgrade}</h2><div class="chef-xp"><i style="width:${current>=5?100:progress*50}%"></i></div><small>${current>=5?'MAXIMUM KITCHEN MASTERY':`${progress}/2 meals toward your next level`}</small></div><b>LV. ${current}</b></section>`;return chefProgressRestaurant().replace('<section class="chef-customizer"',`${panel}<section class="chef-customizer"`)}
+const levelProgressAct=act
+act=(a:string)=>{if(a==='serve'){const prior=state.level;(state as any).chefXp=((state as any).chefXp||0)+1;state.level=Math.min(5,2+Math.floor((state as any).chefXp/2));if(state.level>=4)state.coins+=25;if(state.level>=5)state.rep+=1;if(state.level>prior)toast(`Chef Level ${state.level} reached — a new upgrade is ready!`)}levelProgressAct(a)}
+render()
