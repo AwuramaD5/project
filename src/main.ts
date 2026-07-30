@@ -150,3 +150,19 @@ act=(a:string)=>{if(a.startsWith('ambience-')){(state as any).ambience=a.replace
 const ambientRender=render
 render=()=>{app.dataset.ambience=(state as any).ambience||'sunlit';ambientRender()}
 app.dataset.ambience=(state as any).ambience||'sunlit'
+
+// Pepper is the visible final seasoning, with the same finish action used throughout the cooking flow.
+const pepperFinishStation=station
+station=(r:Recipe)=>{const markup=pepperFinishStation(r);return state.station===3?markup.replace(/(data-action="finish-season"><span>)[\s\S]*?(<\/span> Final seasoning)/,'$1🌶️$2'):markup}
+const pepperToast=toast
+toast=(message:string)=>pepperToast(message.replace('A light pinch of salt','Fresh-cracked pepper'))
+
+// Guests now have recognizable roles, visual styling, and a small bit of personality.
+const guestProfiles:Record<string,{type:string;label:string;note:string}>={Lucia:{type:'regular',label:'LOCAL REGULAR',note:'Knows the neighborhood favorites by heart.'},Marco:{type:'kid',label:'JUNIOR FOODIE',note:'A curious young eater with big opinions.'},Giulia:{type:'critic',label:'FOOD CRITIC',note:'A sharp palate is taking notes tonight.'},Hana:{type:'foodie',label:'RAMEN ENTHUSIAST',note:'Always looking for the next great bowl.'},Ren:{type:'kid',label:'JUNIOR FOODIE',note:'A curious young eater with big opinions.'},Yuki:{type:'critic',label:'FOOD CRITIC',note:'A sharp palate is taking notes tonight.'},Ama:{type:'regular',label:'LOCAL REGULAR',note:'Knows the neighborhood favorites by heart.'},Kojo:{type:'traveler',label:'TRAVELER',note:'Collecting unforgettable meals around the world.'},Efua:{type:'foodie',label:'HOME COOK',note:'Loves discovering a dish’s hidden details.'},Sofía:{type:'traveler',label:'TRAVELER',note:'Collecting unforgettable meals around the world.'},Mateo:{type:'kid',label:'JUNIOR FOODIE',note:'A curious young eater with big opinions.'},Elena:{type:'critic',label:'FOOD CRITIC',note:'A sharp palate is taking notes tonight.'},Anaya:{type:'foodie',label:'HOME COOK',note:'Loves discovering a dish’s hidden details.'},Arjun:{type:'regular',label:'LOCAL REGULAR',note:'Knows the neighborhood favorites by heart.'},Priya:{type:'traveler',label:'TRAVELER',note:'Collecting unforgettable meals around the world.'}}
+const guestProfile=()=>guestProfiles[recipe().customer]||{type:'regular',label:'LOCAL REGULAR',note:'Ready for a delicious meal.'}
+const diverseRestaurantView=restaurantView
+restaurantView=()=>{const guest=guestProfile();return diverseRestaurantView().replace('<div class="customer">',`<div class="customer guest ${guest.type}">`).replace('<div class="bubble"><b>',`<div class="bubble"><span class="guest-role">${guest.label}</span><b>`).replace('Tap them to take the order.',guest.note)}
+const diverseOrderView=orderView
+orderView=()=>{const guest=guestProfile();return diverseOrderView().replace('class="big-guest"',`class="big-guest guest ${guest.type}"`).replace('<div class="speech"><b>',`<div class="speech"><span class="guest-role">${guest.label}</span><b>`)}
+const diverseResultView=resultView
+resultView=()=>{const guest=guestProfile();return diverseResultView().replace('class="service-guest"',`class="service-guest guest ${guest.type}"`).replace('class="review-guest"',`class="review-guest guest ${guest.type}"`)}
