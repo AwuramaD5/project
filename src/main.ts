@@ -171,6 +171,9 @@ resultView=()=>{const guest=guestProfile();return diverseResultView().replace('c
 const flexibleMixStation=station
 station=(r:Recipe)=>flexibleMixStation(r).replace(/<div class="slice-button manual-stir-hint">([\s\S]*?)<\/div>/,`<button class="slice-button manual-stir-hint" data-action="combine">$1</button>`).replace('Give the bowl three turns to create your cooking mixture.','Drag the spoon around the bowl, or tap the button to stir once.')
 
+const labeledFinishStation=station
+station=(r:Recipe)=>{const markup=labeledFinishStation(r);if(state.station!==3)return markup;const finishes=(state as any).finishes||[];const labels:{[key:string]:string}={garnish:'Fresh herb garnish',season:'Fresh-cracked black pepper',wipe:'Plate edge polished'};const completed=finishes.map((finish:string)=>`<span>✓ ${labels[finish]}</span>`).join('');return markup.replace('<button class="primary station-next" data-action="serve"',`<div class="finish-checklist">${completed||'<span>Choose your finishing touches above.</span>'}</div><button class="primary station-next" data-action="serve"`)}
+
 // Every city is playable immediately; chef levels now reward continued service with useful perks.
 cities.forEach(city=>city.locked=false)
 ;(gameAmbiences as any).aurora='Aurora'
