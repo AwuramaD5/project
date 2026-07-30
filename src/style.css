@@ -82,3 +82,14 @@
 @keyframes garnish-drop{0%{opacity:0;transform:translate(25px,-48px) rotate(-60deg) scale(.6)}55%{opacity:1;transform:translate(-3px,4px) rotate(28deg) scale(1.08)}100%{opacity:0;transform:translate(-5px,31px) rotate(42deg) scale(.78)}}
 @keyframes season-shake{0%,100%{opacity:0;transform:translateY(-15px) rotate(-26deg)}18%,82%{opacity:1}35%,55%,75%{transform:translate(-7px,5px) rotate(-44deg)}45%,65%{transform:translate(4px,5px) rotate(-12deg)}}
 @keyframes cloth-wipe{0%{opacity:0;transform:translate(42px,-22px) rotate(28deg)}18%{opacity:1}78%{opacity:1;transform:translate(-93px,43px) rotate(-14deg)}100%{opacity:0;transform:translate(-112px,49px) rotate(-18deg)}}
+
+/* Manual mixing keeps the bowl tactile on mouse and touch screens. */
+.manual-mix .bowl-rim{cursor:grab;touch-action:none}.manual-mix .bowl-rim:active{cursor:grabbing}
+.manual-mix .mix-spoon{transition:transform .08s linear;pointer-events:none}.manual-mix.mixing .raw-bits{animation:ingredients-swirl .55s linear infinite}.manual-mix.mixing .pale-mixture{opacity:.78;transform:scale(.8)}
+.manual-stir-hint{display:block;margin-top:12px;background:#5d776a!important;color:#fff!important;box-shadow:inset 0 -2px #314738;user-select:none}
+
+/* One light plate surface sits behind the food; effects are layered above it. */
+.plate-dish.finish-dish{isolation:isolate;overflow:hidden;background:radial-gradient(circle at 48% 42%,#fffef9 0 48%,#f4f0e7 49% 65%,#d7e5df 66% 100%)!important;border-color:#b8d5cd;box-shadow:inset 0 0 0 24px #fdfbf5,0 4px 8px #533e3724}
+.plate-dish.finish-dish:after{content:''!important;display:block!important;position:absolute;z-index:0;inset:17px;border:2px solid #dce9e2;border-radius:50%;background:radial-gradient(ellipse at center,#fffdf7 0 66%,#f5f0e6 67%);box-shadow:inset 0 5px 11px #ffffff,inset 0 -7px 11px #d3e0d933}
+.plate-dish.finish-dish .flat-food{z-index:2!important;position:relative}.plate-dish.finish-dish .flat-food.plate:before{display:none}
+.plate-dish.finish-dish .finish-effects{z-index:5}.finish-dish.last-finish-garnish:before,.finish-dish.last-finish-season:before,.finish-dish.last-finish-wipe:before{z-index:7}
