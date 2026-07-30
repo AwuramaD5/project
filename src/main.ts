@@ -132,3 +132,9 @@ act=(a:string)=>{if(a==='serve')(state as any).resultPhase='handoff';if(a==='pre
 
 const boardSliceAttach=attach
 attach=()=>{boardSliceAttach();document.querySelectorAll<HTMLElement>('[data-slice-board]').forEach(board=>board.onclick=()=>{if(state.prep<3)act('slice')})}
+
+// The journal is a cookbook collection: a recipe is revealed only after the player serves it.
+const cookbookJournalView=journalView
+journalView=()=>{const discovered=(state as any).discovered||[];const all=cities.flatMap(city=>city.recipes.map(recipe=>({city,recipe})));return `<section class="view journal-view cookbook-view"><div class="cookbook-heading"><div><p class="eyebrow">YOUR COOKBOOK · COLLECTION</p><h1>Recipes earned at the table.</h1><p class="lede">Cook dishes for guests to reveal their story and add them to your journal.</p></div><div class="cookbook-count"><b>${discovered.length}</b><span>/ ${all.length} DISCOVERED</span></div></div><div class="cookbook-grid">${all.map(({city,recipe:r})=>{const key=`${city.city}:${r.name}`;const known=discovered.includes(key);return `<article class="cookbook-entry ${known?'discovered':'undiscovered'}" style="--accent:${city.color}"><div class="cookbook-dish">${known?foodIllustration(r,'plate'):'<span>?</span>'}</div><div class="cookbook-copy"><span>${known?city.country.toUpperCase():'UNDISCOVERED RECIPE'}</span><h2>${known?r.name:'Unknown dish'}</h2><p>${known?r.fact:`Cook a dish in ${city.city} to uncover this page.`}</p><footer>${known?`${r.difficulty} ★ kitchen skill`:'✦ Keep cooking to reveal'}</footer></div></article>`}).join('')}</div></section>`}
+const cookbookUnlockAct=act
+act=(a:string)=>{if(a==='serve'){const key=`${state.city.city}:${recipe().name}`;const discovered=(state as any).discovered||[];if(!discovered.includes(key))(state as any).discovered=[...discovered,key]}cookbookUnlockAct(a)}
